@@ -1,5 +1,14 @@
 package com.projeto.projetoapi.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor //cria construtor com argumentos
+@NoArgsConstructor  //cria construtor sem argumentos
+//@Builder(toBuilder = true)
 public class PostDTO {
     private String nomeProduto;
     private String nomeRegiao;
