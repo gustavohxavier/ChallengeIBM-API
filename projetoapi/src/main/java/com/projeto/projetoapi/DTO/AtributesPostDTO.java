@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AtributesPostDTO {
 
+
     private String nomeProduto;
     private String nomeRegiao;
     private String nomeUF;
