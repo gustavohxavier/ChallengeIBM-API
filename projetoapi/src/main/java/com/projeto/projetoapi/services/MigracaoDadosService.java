@@ -2,9 +2,8 @@ package com.projeto.projetoapi.services;
 
 import com.projeto.projetoapi.DTO.CreditDTO;
 import com.projeto.projetoapi.client.CreditClient;
-import com.projeto.projetoapi.entities.Credit;
+import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.mapper.MigracaoDadosMapper;
-import com.projeto.projetoapi.repositories.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +16,11 @@ public class MigracaoDadosService {
     private CreditClient creditClient;
 
     @Autowired
-    private CreditRepository creditRepository;
-
-    @Autowired
     private MigracaoDadosMapper migracaoDadosMapper;
 
-    public void migrar(){
-        CreditDTO allPosts = creditClient.getAllPosts();
-        List<Credit> listCredit = migracaoDadosMapper.mapPostDTOToValue(allPosts);
-        creditRepository.saveAll(listCredit);
+    public List<CreditModel> migrar(){
+        CreditDTO allCredits = creditClient.getAllCredits();
+        List<CreditModel> listCreditModel = migracaoDadosMapper.mapCreditDTOToCredit(allCredits);
+        return listCreditModel;
     }
 }

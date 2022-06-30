@@ -1,15 +1,22 @@
-package com.projeto.projetoapi.DTO;
+package com.projeto.projetoapi.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class AtributesCreditDTO {
+@AllArgsConstructor
+@Entity
+@Table(name = "TB_CONTRACTS")
+public class CreditModel {
+//    private static final long serialVersionUID = 1L;
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     public String nomeProduto;
     public String nomeRegiao;
     public String nomeUF;
