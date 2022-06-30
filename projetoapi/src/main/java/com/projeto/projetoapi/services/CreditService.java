@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CreditService {
@@ -28,4 +29,7 @@ public class CreditService {
         return creditRepository.findAll();
     }
 
+    public Optional<CreditModel> findById(Long id) {
+        return creditRepository.findById(id);
+    }
 }
