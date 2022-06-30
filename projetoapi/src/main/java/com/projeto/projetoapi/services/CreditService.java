@@ -32,4 +32,8 @@ public class CreditService {
     public Optional<CreditModel> findById(Long id) {
         return creditRepository.findById(id);
     }
+
+    public void delete(CreditModel creditModel) {
+        creditRepository.delete(creditModel);
+    }
 }
