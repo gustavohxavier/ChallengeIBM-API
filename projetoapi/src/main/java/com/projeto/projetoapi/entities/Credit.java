@@ -1,15 +1,21 @@
-package com.projeto.projetoapi.DTO;
+package com.projeto.projetoapi.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class AtributesPostDTO {
+@AllArgsConstructor
+@Entity(name = "produto")
+public class Credit {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nomeProduto;
     private String nomeRegiao;
     private String nomeUF;

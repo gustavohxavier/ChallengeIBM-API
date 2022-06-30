@@ -1,7 +1,7 @@
 package com.projeto.projetoapi.controller;
 
-import com.projeto.projetoapi.DTO.PostDTO;
-import com.projeto.projetoapi.client.PostClient;
+import com.projeto.projetoapi.DTO.CreditDTO;
+import com.projeto.projetoapi.client.CreditClient;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/posts")
-public class PostController {
+public class CreditController {
 
     @Autowired
-    private PostClient postClient;
+    private CreditClient creditClient;
 
     @GetMapping
-    public PostDTO getAllPosts(@RequestParam String id){
-        return postClient.getAllPosts();
+    public CreditDTO getAllPosts(@RequestParam String id){
+        return creditClient.getAllPosts();
     }
 
 

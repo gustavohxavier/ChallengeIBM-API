@@ -1,11 +1,10 @@
 package com.projeto.projetoapi.repositories;
 
-import com.projeto.projetoapi.DTO.AtributesPostDTO;
-import com.projeto.projetoapi.entities.Value;
+import com.projeto.projetoapi.entities.Credit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ValueRepository extends JpaRepository<Value, Long> {
+public interface CreditRepository extends JpaRepository<Credit, Long> {
 
 }
