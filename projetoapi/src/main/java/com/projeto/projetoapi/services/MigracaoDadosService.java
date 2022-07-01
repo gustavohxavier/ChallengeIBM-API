@@ -27,12 +27,13 @@ public class MigracaoDadosService {
     }
 
     //Migrar os dados que chegam via Request HTTP
-    public CreditModel webClientMigrar (AtributesCreditDTO atributesCreditDTO){
+    public CreditModel webClientMigrar (AtributesCreditDTO atributesCreditDTO, Long id){
         CreditModel creditModel = migracaoDadosMapper.mapAtributesCreditDTOToCreditModel(atributesCreditDTO);
+        creditModel.setId(id);
         return creditModel;
     }
 
-    public List<CreditModel> filterByYear(String year) {
+    /*public List<CreditModel> filterByYear(String year) {
 
-    }
+    }*/
 }

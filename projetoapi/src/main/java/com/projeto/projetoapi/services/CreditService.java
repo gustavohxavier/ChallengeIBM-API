@@ -19,7 +19,7 @@ public class CreditService {
     private CreditRepository creditRepository;
 
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
-    @Scheduled(fixedDelay = 1000000L)
+    @Scheduled(fixedDelay = 10000000L)
     public void iniciar(){
 
         List<CreditModel> creditModelList = migracaoDadosService.feignClientMigrar();
@@ -45,7 +45,7 @@ public class CreditService {
         return creditRepository.save(creditModel);
     }
 
-    public List<CreditModel> findByYear(String year) {
+    /*public List<CreditModel> findByYear(String year) {
         List<CreditModel> creditModelList = migracaoDadosService.filterByYear(year);
-    }
+    }*/
 }
