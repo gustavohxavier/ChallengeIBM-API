@@ -31,4 +31,8 @@ public class MigracaoDadosService {
         CreditModel creditModel = migracaoDadosMapper.mapAtributesCreditDTOToCreditModel(atributesCreditDTO);
         return creditModel;
     }
+
+    public List<CreditModel> filterByYear(String year) {
+
+    }
 }

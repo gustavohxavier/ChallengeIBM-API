@@ -44,4 +44,8 @@ public class CreditService {
     public CreditModel save(CreditModel creditModel) {
         return creditRepository.save(creditModel);
     }
+
+    public List<CreditModel> findByYear(String year) {
+        List<CreditModel> creditModelList = migracaoDadosService.filterByYear(year);
+    }
 }

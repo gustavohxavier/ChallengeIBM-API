@@ -11,7 +11,6 @@ import java.util.List;
 @Component
 public class MigracaoDadosMapper {
 
-
     public List<CreditModel> mapCreditDTOToCreditModel(CreditDTO creditDTO) {
         List<CreditModel> listSaida = new ArrayList<>();
         for (AtributesCreditDTO atributesCreditDTO : creditDTO.getValue()){
@@ -32,10 +31,8 @@ public class MigracaoDadosMapper {
             creditModel.setAreaCusteio(atributesCreditDTO.getAreaCusteio());
 
             listSaida.add(creditModel);
-
         }
         return listSaida;
-
     }
 
 

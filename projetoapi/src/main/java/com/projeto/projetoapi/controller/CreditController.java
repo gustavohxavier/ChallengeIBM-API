@@ -60,6 +60,13 @@ public class CreditController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
         CreditModel CreditModel = migracaoDadosService.webClientMigrar(atributesCreditDTO);
+
         return ResponseEntity.status(HttpStatus.OK).body(creditService.save(CreditModel));
+    }
+
+    @GetMapping(value = "/{year}")
+    public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
+        List<CreditModel> creditModelList = creditService.findByYear(year);
+        return ResponseEntity.status(HttpStatus.OK).body(creditModelList);
     }
 }
