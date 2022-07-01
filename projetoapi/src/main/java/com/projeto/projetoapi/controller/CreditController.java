@@ -6,6 +6,8 @@ import com.projeto.projetoapi.services.CreditService;
 import com.projeto.projetoapi.services.MigracaoDadosService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +42,12 @@ public class CreditController {
         return ResponseEntity.status(HttpStatus.OK).body(creditModelOptional.get());
     }
 
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<CreditModel>> findAll(Pageable pageable){
+        Page<CreditModel> creditModelPage = creditService.findAllPageable(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(creditModelPage);
+    }
+
     //Deleta uma tupla do DB especificada por ID
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteCredit(@PathVariable(value = "id") Long id){
@@ -63,7 +71,7 @@ public class CreditController {
         return ResponseEntity.status(HttpStatus.OK).body(creditService.save(creditModel));
     }
 
-    /*@GetMapping(value = "/{year}")
+    /*@GetMapping(value = "/ano/{year}")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
         List<CreditModel> creditModelList = creditService.findByYear(year);
         return ResponseEntity.status(HttpStatus.OK).body(creditModelList);

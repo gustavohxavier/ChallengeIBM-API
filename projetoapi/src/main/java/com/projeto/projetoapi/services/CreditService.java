@@ -3,6 +3,8 @@ package com.projeto.projetoapi.services;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.repositories.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,11 @@ public class CreditService {
 
     public CreditModel save(CreditModel creditModel) {
         return creditRepository.save(creditModel);
+    }
+
+    public Page<CreditModel> findAllPageable(Pageable pageable) {
+        Page<CreditModel> creditModelPage = creditRepository.findAll(pageable);
+        return creditModelPage;
     }
 
     /*public List<CreditModel> findByYear(String year) {
