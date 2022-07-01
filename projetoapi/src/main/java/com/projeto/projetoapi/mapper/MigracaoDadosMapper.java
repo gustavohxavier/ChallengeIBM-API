@@ -37,4 +37,25 @@ public class MigracaoDadosMapper {
         return listSaida;
 
     }
+
+
+    public CreditModel mapAtributesCreditDTOToCreditModel(AtributesCreditDTO atributesCreditDTO) {
+        CreditModel creditModel = new CreditModel();
+        creditModel.setNomeProduto(atributesCreditDTO.getNomeProduto());
+        creditModel.setNomeRegiao(atributesCreditDTO.getNomeRegiao());
+        creditModel.setNomeUF(atributesCreditDTO.getNomeUF());
+        creditModel.setMesEmissao(atributesCreditDTO.getMesEmissao());
+        creditModel.setAnoEmissao(atributesCreditDTO.getAnoEmissao());
+        creditModel.setCdPrograma(atributesCreditDTO.getCdPrograma());
+        creditModel.setCdSubPrograma(atributesCreditDTO.getCdSubPrograma());
+        creditModel.setCdFonteRecurso(atributesCreditDTO.getCdFonteRecurso());
+        creditModel.setCdTipoSeguro(atributesCreditDTO.getCdTipoSeguro());
+        creditModel.setQtdCusteio(atributesCreditDTO.getQtdCusteio());
+        creditModel.setVlCusteio(atributesCreditDTO.getVlCusteio());
+        creditModel.setAtividade(atributesCreditDTO.getAtividade());
+        creditModel.setCdModalidade(atributesCreditDTO.getCdModalidade());
+        creditModel.setAreaCusteio(atributesCreditDTO.getAreaCusteio());
+
+        return creditModel;
+    }
 }

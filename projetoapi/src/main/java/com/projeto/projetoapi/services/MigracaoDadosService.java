@@ -8,7 +8,6 @@ import com.projeto.projetoapi.models.CreditModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,12 +27,8 @@ public class MigracaoDadosService {
     }
 
     //Migrar os dados que chegam via Request HTTP
-    public List<CreditModel> webClientMigrar (AtributesCreditDTO atributesCreditDTO){
-        List<AtributesCreditDTO> atributesCreditDTOList = new ArrayList<>();
-        atributesCreditDTOList.add(atributesCreditDTO);
-        CreditDTO creditDTO = new CreditDTO();
-        creditDTO.setValue(atributesCreditDTOList);
-        List<CreditModel> listCreditModel = migracaoDadosMapper.mapCreditDTOToCreditModel(creditDTO);
-        return listCreditModel;
+    public CreditModel webClientMigrar (AtributesCreditDTO atributesCreditDTO){
+        CreditModel creditModel = migracaoDadosMapper.mapAtributesCreditDTOToCreditModel(atributesCreditDTO);
+        return creditModel;
     }
 }
