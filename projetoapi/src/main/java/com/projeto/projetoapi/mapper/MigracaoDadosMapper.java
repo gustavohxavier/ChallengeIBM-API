@@ -12,7 +12,7 @@ import java.util.List;
 public class MigracaoDadosMapper {
 
 
-    public List<CreditModel> mapCreditDTOToCredit(CreditDTO creditDTO) {
+    public List<CreditModel> mapCreditDTOToCreditModel(CreditDTO creditDTO) {
         List<CreditModel> listSaida = new ArrayList<>();
         for (AtributesCreditDTO atributesCreditDTO : creditDTO.getValue()){
             CreditModel creditModel = new CreditModel();
