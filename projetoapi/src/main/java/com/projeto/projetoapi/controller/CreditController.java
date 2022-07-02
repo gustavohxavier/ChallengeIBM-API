@@ -74,9 +74,13 @@ public class CreditController {
         return ResponseEntity.status(HttpStatus.OK).body(creditPUTByIdResponse);
     }
 
-    /*@GetMapping(value = "/ano/{year}")
+    @GetMapping(value = "/year/{year}")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
+        List<CreditModel> creditModelList1 = creditService.findByYear(year);
+        if (creditModelList1.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
+        }
         List<CreditModel> creditModelList = creditService.findByYear(year);
         return ResponseEntity.status(HttpStatus.OK).body(creditModelList);
-    }*/
+    }
 }

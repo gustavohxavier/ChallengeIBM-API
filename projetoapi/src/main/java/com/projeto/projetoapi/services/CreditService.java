@@ -58,7 +58,9 @@ public class CreditService {
         return creditModelPage;
     }
 
-    /*public List<CreditModel> findByYear(String year) {
-        List<CreditModel> creditModelList = migracaoDadosService.filterByYear(year);
-    }*/
+    public List<CreditModel> findByYear(String year) {
+        List<CreditModel> creditModelList = creditRepository.findByAnoEmissao(year);
+        return creditModelList;
+    }
+
 }
