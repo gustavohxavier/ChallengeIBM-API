@@ -57,7 +57,7 @@ public class MigracaoDadosMapper {
         creditModel.setCdModalidade(atributesCreditDTO.getCdModalidade());
         creditModel.setAreaCusteio(atributesCreditDTO.getAreaCusteio());*/
 
-        creditModel = creditMapper.toCreditModel(atributesCreditDTO);
+        //creditModel = creditMapper.toCreditModel(atributesCreditDTO);
 
         return creditModel;
     }

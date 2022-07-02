@@ -1,6 +1,5 @@
 package com.projeto.projetoapi.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,24 +17,18 @@ public class CreditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public String nomeProduto;
-    public String nomeRegiao;
-    public String nomeUF;
-    @JsonProperty("MesEmissao")
-    public String mesEmissao;
-    @JsonProperty("AnoEmissao")
-    public String anoEmissao;
-    public String cdPrograma;
-    public String cdSubPrograma;
-    public String cdFonteRecurso;
-    public String cdTipoSeguro;
-    @JsonProperty("QtdCusteio")
-    public Double qtdCusteio;
-    @JsonProperty("VlCusteio")
-    public Double vlCusteio;
-    @JsonProperty("Atividade")
-    public String atividade;
-    public String cdModalidade;
-    @JsonProperty("AreaCusteio")
-    public Double areaCusteio;
+    private String nomeProduto;
+    private String nomeRegiao;
+    private String nomeUF;
+    private String mesEmissao;
+    private String anoEmissao;
+    private String cdPrograma;
+    private String cdSubPrograma;
+    private String cdFonteRecurso;
+    private String cdTipoSeguro;
+    private Double qtdCusteio;
+    private Double vlCusteio;
+    private String atividade;
+    private String cdModalidade;
+    private Double areaCusteio;
 }

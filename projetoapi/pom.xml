@@ -85,8 +85,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<source>17</source> <!-- depending on your project -->
-					<target>17</target> <!-- depending on your project -->
+					<source>1.8</source> <!-- depending on your project -->
+					<target>1.8</target> <!-- depending on your project -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>

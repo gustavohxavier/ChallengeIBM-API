@@ -1,5 +1,7 @@
 package com.projeto.projetoapi.services;
 
+import com.projeto.projetoapi.DTO.responses.CreditPUTByIdResponse;
+import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.repositories.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class CreditService {
 
     @Autowired
     private CreditRepository creditRepository;
+
+    @Autowired
+    private CreditMapper creditMapper;
 
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
     @Scheduled(fixedDelay = 10000000L)
@@ -43,8 +48,11 @@ public class CreditService {
         creditRepository.delete(creditModel);
     }
 
-    public CreditModel save(CreditModel creditModel) {
-        return creditRepository.save(creditModel);
+    public CreditPUTByIdResponse save(CreditModel creditModel) {
+
+        CreditModel creditModel1 = creditRepository.save(creditModel);
+        CreditPUTByIdResponse creditPUTByIdResponse = creditMapper.toCreditPUTByIdResponse(creditModel1);
+        return creditPUTByIdResponse;
     }
 
     public Page<CreditModel> findAllPageable(Pageable pageable) {

@@ -1,7 +1,7 @@
 package com.projeto.projetoapi.services;
 
-import com.projeto.projetoapi.DTO.AtributesCreditDTO;
 import com.projeto.projetoapi.DTO.CreditDTO;
+import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
 import com.projeto.projetoapi.client.CreditClient;
 import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.mapper.MigracaoDadosMapper;
@@ -31,8 +31,8 @@ public class MigracaoDadosService {
     }
 
     //Migrar os dados que chegam via Request HTTP
-    public CreditModel webClientMigrar (AtributesCreditDTO atributesCreditDTO, Long id){
-        CreditModel creditModel = creditMapper.toCreditModel(atributesCreditDTO);
+    public CreditModel webClientMigrar (CreditPUTByIdRequest creditPUTByIdRequest, Long id){
+        CreditModel creditModel = creditMapper.toCreditModel(creditPUTByIdRequest);
         creditModel.setId(id);
         return creditModel;
     }

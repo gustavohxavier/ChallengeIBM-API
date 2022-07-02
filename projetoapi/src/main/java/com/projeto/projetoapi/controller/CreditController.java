@@ -1,6 +1,9 @@
 package com.projeto.projetoapi.controller;
 
-import com.projeto.projetoapi.DTO.AtributesCreditDTO;
+import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
+import com.projeto.projetoapi.DTO.responses.CreditGetByIdResponse;
+import com.projeto.projetoapi.DTO.responses.CreditPUTByIdResponse;
+import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.services.CreditService;
 import com.projeto.projetoapi.services.MigracaoDadosService;
@@ -22,9 +25,15 @@ public class CreditController {
 
     @Autowired
     private CreditService creditService;
-
     @Autowired
     private MigracaoDadosService migracaoDadosService;
+    @Autowired
+    CreditPUTByIdRequest creditPUTByIdRequest;
+    @Autowired
+    CreditGetByIdResponse   creditGetByIdResponse;
+
+    @Autowired
+    CreditMapper creditMapper;
 
     //Retorna todos os dados do DB
     @GetMapping
@@ -39,7 +48,8 @@ public class CreditController {
         if (!creditModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(creditModelOptional.get());
+        CreditGetByIdResponse creditGetByIdResponse = creditMapper.toCreditGetByIdResponse(creditModelOptional);
+        return ResponseEntity.status(HttpStatus.OK).body(creditGetByIdResponse);
     }
 
     @GetMapping(value = "/page")
@@ -61,14 +71,15 @@ public class CreditController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateCredit(@PathVariable(value = "id") Long id,
-                                               @RequestBody AtributesCreditDTO atributesCreditDTO){
+                                               @RequestBody CreditPUTByIdRequest creditPUTByIdRequest){
 
         Optional<CreditModel> creditModelOptional = creditService.findById(id);
         if(!creditModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
-        CreditModel creditModel = migracaoDadosService.webClientMigrar(atributesCreditDTO, id);
-        return ResponseEntity.status(HttpStatus.OK).body(creditService.save(creditModel));
+        CreditModel creditModel = migracaoDadosService.webClientMigrar(creditPUTByIdRequest, id);
+        CreditPUTByIdResponse creditPUTByIdResponse = creditService.save(creditModel);
+        return ResponseEntity.status(HttpStatus.OK).body(creditPUTByIdResponse);
     }
 
     /*@GetMapping(value = "/ano/{year}")
