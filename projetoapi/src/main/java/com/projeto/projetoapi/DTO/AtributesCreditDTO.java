@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AtributesCreditDTO {
 
-
     private String nomeProduto;
     private String nomeRegiao;
     private String nomeUF;

@@ -17,9 +17,13 @@ public class MigracaoDadosMapper {
 
     public List<CreditModel> mapCreditDTOToCreditModel(CreditDTO creditDTO) {
         List<CreditModel> listSaida = new ArrayList<>();
-        for (AtributesCreditDTO atributesCreditDTO : creditDTO.getValue()){
+        for (AtributesCreditDTO atributesCreditDTO : creditDTO.getValue()) {
             CreditModel creditModel = new CreditModel();
-            creditModel.setNomeProduto(atributesCreditDTO.getNomeProduto());
+            StringBuilder nomeProduto = new StringBuilder(atributesCreditDTO.getNomeProduto());
+            int length = nomeProduto.length();
+            nomeProduto = nomeProduto.deleteCharAt(length - 1);
+            nomeProduto = nomeProduto.deleteCharAt(0);
+            creditModel.setNomeProduto(nomeProduto.toString());
             creditModel.setNomeRegiao(atributesCreditDTO.getNomeRegiao());
             creditModel.setNomeUF(atributesCreditDTO.getNomeUF());
             creditModel.setMesEmissao(atributesCreditDTO.getMesEmissao());
@@ -37,28 +41,5 @@ public class MigracaoDadosMapper {
             listSaida.add(creditModel);
         }
         return listSaida;
-    }
-
-
-    public CreditModel mapAtributesCreditDTOToCreditModel(AtributesCreditDTO atributesCreditDTO) {
-        CreditModel creditModel = new CreditModel();
-        /*creditModel.setNomeProduto(atributesCreditDTO.getNomeProduto());
-        creditModel.setNomeRegiao(atributesCreditDTO.getNomeRegiao());
-        creditModel.setNomeUF(atributesCreditDTO.getNomeUF());
-        creditModel.setMesEmissao(atributesCreditDTO.getMesEmissao());
-        creditModel.setAnoEmissao(atributesCreditDTO.getAnoEmissao());
-        creditModel.setCdPrograma(atributesCreditDTO.getCdPrograma());
-        creditModel.setCdSubPrograma(atributesCreditDTO.getCdSubPrograma());
-        creditModel.setCdFonteRecurso(atributesCreditDTO.getCdFonteRecurso());
-        creditModel.setCdTipoSeguro(atributesCreditDTO.getCdTipoSeguro());
-        creditModel.setQtdCusteio(atributesCreditDTO.getQtdCusteio());
-        creditModel.setVlCusteio(atributesCreditDTO.getVlCusteio());
-        creditModel.setAtividade(atributesCreditDTO.getAtividade());
-        creditModel.setCdModalidade(atributesCreditDTO.getCdModalidade());
-        creditModel.setAreaCusteio(atributesCreditDTO.getAreaCusteio());*/
-
-        //creditModel = creditMapper.toCreditModel(atributesCreditDTO);
-
-        return creditModel;
     }
 }
