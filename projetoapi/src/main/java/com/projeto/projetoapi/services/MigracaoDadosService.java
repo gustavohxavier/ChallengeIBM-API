@@ -3,6 +3,7 @@ package com.projeto.projetoapi.services;
 import com.projeto.projetoapi.DTO.AtributesCreditDTO;
 import com.projeto.projetoapi.DTO.CreditDTO;
 import com.projeto.projetoapi.client.CreditClient;
+import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.mapper.MigracaoDadosMapper;
 import com.projeto.projetoapi.models.CreditModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class MigracaoDadosService {
     @Autowired
     private MigracaoDadosMapper migracaoDadosMapper;
 
+    @Autowired
+    CreditMapper creditMapper;
+
     //Migrar os dados da API externa que chegam via FEIGN CLIENT
     public List<CreditModel> feignClientMigrar(){
         CreditDTO allCredits = creditClient.getAllCredits();
@@ -28,7 +32,7 @@ public class MigracaoDadosService {
 
     //Migrar os dados que chegam via Request HTTP
     public CreditModel webClientMigrar (AtributesCreditDTO atributesCreditDTO, Long id){
-        CreditModel creditModel = migracaoDadosMapper.mapAtributesCreditDTOToCreditModel(atributesCreditDTO);
+        CreditModel creditModel = creditMapper.toCreditModel(atributesCreditDTO);
         creditModel.setId(id);
         return creditModel;
     }
