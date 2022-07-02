@@ -49,9 +49,7 @@ public class CreditService {
     }
 
     public CreditPUTByIdResponse save(CreditModel creditModel) {
-
-        CreditModel creditModel1 = creditRepository.save(creditModel);
-        CreditPUTByIdResponse creditPUTByIdResponse = creditMapper.toCreditPUTByIdResponse(creditModel1);
+        CreditPUTByIdResponse creditPUTByIdResponse = creditMapper.toCreditPUTByIdResponse(creditRepository.save(creditModel));
         return creditPUTByIdResponse;
     }
 

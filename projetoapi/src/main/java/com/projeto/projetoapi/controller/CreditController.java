@@ -1,9 +1,7 @@
 package com.projeto.projetoapi.controller;
 
 import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
-import com.projeto.projetoapi.DTO.responses.CreditGetByIdResponse;
 import com.projeto.projetoapi.DTO.responses.CreditPUTByIdResponse;
-import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.services.CreditService;
 import com.projeto.projetoapi.services.MigracaoDadosService;
@@ -27,13 +25,6 @@ public class CreditController {
     private CreditService creditService;
     @Autowired
     private MigracaoDadosService migracaoDadosService;
-    @Autowired
-    CreditPUTByIdRequest creditPUTByIdRequest;
-    @Autowired
-    CreditGetByIdResponse   creditGetByIdResponse;
-
-    @Autowired
-    CreditMapper creditMapper;
 
     //Retorna todos os dados do DB
     @GetMapping
@@ -48,8 +39,8 @@ public class CreditController {
         if (!creditModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
-        CreditGetByIdResponse creditGetByIdResponse = creditMapper.toCreditGetByIdResponse(creditModelOptional);
-        return ResponseEntity.status(HttpStatus.OK).body(creditGetByIdResponse);
+        //CreditGetByIdResponse creditGetByIdResponse = creditMapper.toCreditGetByIdResponse(creditModelOptional);
+        return ResponseEntity.status(HttpStatus.OK).body(creditModelOptional.get());
     }
 
     @GetMapping(value = "/page")
@@ -79,6 +70,7 @@ public class CreditController {
         }
         CreditModel creditModel = migracaoDadosService.webClientMigrar(creditPUTByIdRequest, id);
         CreditPUTByIdResponse creditPUTByIdResponse = creditService.save(creditModel);
+        creditPUTByIdResponse.setId(id);
         return ResponseEntity.status(HttpStatus.OK).body(creditPUTByIdResponse);
     }
 
