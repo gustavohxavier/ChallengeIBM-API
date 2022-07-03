@@ -26,8 +26,9 @@ public class MigracaoDadosService {
     //Migrar os dados da API externa que chegam via FEIGN CLIENT
     public List<CreditModel> feignClientMigrar(){
         CreditDTO allCredits = creditClient.getAllCredits();
-        List<CreditModel> listCreditModel = migracaoDadosMapper.mapCreditDTOToCreditModel(allCredits);
-        return listCreditModel;
+        //List<CreditModel> listCreditModel = migracaoDadosMapper.mapCreditDTOToCreditModel(allCredits);
+        List<CreditModel> creditModelList = creditMapper.mapAllCreditDTOToCreditModel(allCredits.getValue());
+        return creditModelList;
     }
 
     //Migrar os dados que chegam via Request HTTP

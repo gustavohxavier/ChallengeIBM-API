@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -26,7 +28,7 @@ public class AtributesCreditDTO {
     @JsonProperty("QtdCusteio")
     private Double qtdCusteio;
     @JsonProperty("VlCusteio")
-    private Double vlCusteio;
+    private BigDecimal vlCusteio;
     @JsonProperty("Atividade")
     private String atividade;
     private String cdModalidade;

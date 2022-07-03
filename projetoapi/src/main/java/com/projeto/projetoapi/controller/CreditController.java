@@ -33,10 +33,10 @@ public class CreditController {
     }
 
     //Retorna uma tupla do DB especificada por ID
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getById(@PathVariable(value = "id") Long id){
+    @GetMapping(value = "/buscar")
+    public ResponseEntity<Object> getById(@RequestParam(value = "idP") Long id){
         Optional<CreditModel> creditModelOptional = creditService.findById(id);
-        if (!creditModelOptional.isPresent()){
+        if (creditModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
         //CreditGetByIdResponse creditGetByIdResponse = creditMapper.toCreditGetByIdResponse(creditModelOptional);
@@ -83,4 +83,6 @@ public class CreditController {
         List<CreditModel> creditModelList = creditService.findByYear(year);
         return ResponseEntity.status(HttpStatus.OK).body(creditModelList);
     }
+
+
 }
