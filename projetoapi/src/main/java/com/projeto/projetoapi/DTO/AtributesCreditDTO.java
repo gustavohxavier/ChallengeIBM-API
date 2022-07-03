@@ -1,6 +1,8 @@
 package com.projeto.projetoapi.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.projeto.projetoapi.services.Deserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class AtributesCreditDTO {
 
+    @JsonDeserialize(using = Deserialize.class)
     private String nomeProduto;
     private String nomeRegiao;
     private String nomeUF;

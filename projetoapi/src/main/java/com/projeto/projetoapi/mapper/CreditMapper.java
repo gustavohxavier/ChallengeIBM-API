@@ -2,8 +2,7 @@ package com.projeto.projetoapi.mapper;
 
 import com.projeto.projetoapi.DTO.AtributesCreditDTO;
 import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
-import com.projeto.projetoapi.DTO.responses.CreditGetByIdResponse;
-import com.projeto.projetoapi.DTO.responses.CreditPUTByIdResponse;
+import com.projeto.projetoapi.DTO.responses.CreditResponse;
 import com.projeto.projetoapi.models.CreditModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,10 +16,9 @@ public interface CreditMapper {
     @Mapping(target = "id", ignore = true)
     CreditModel toCreditModel(CreditPUTByIdRequest creditPUTByIdRequest);
 
-    CreditGetByIdResponse toCreditGetByIdResponse(Optional<CreditModel> creditModelOptional);
+    CreditResponse toCreditGetByIdResponse(Optional<CreditModel> creditModelOptional);
 
-    @Mapping(target = "id", ignore = true)
-    CreditPUTByIdResponse toCreditPUTByIdResponse(CreditModel creditModel);
+    CreditResponse mapToCreditResponse(CreditModel creditModel);
 
     List<CreditModel> mapAllCreditDTOToCreditModel(List<AtributesCreditDTO> value);
 }

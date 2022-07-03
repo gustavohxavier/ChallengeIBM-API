@@ -7,7 +7,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class CreditGetByIdResponse {
+public class CreditResponse {
 
     private Long id;
     private String nomeProduto;

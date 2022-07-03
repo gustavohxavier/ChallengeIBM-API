@@ -1,6 +1,8 @@
 package com.projeto.projetoapi.services;
 
-import com.projeto.projetoapi.DTO.responses.CreditPUTByIdResponse;
+import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
+import com.projeto.projetoapi.DTO.responses.CreditResponse;
+import com.projeto.projetoapi.client.CreditClient;
 import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.repositories.CreditRepository;
@@ -17,19 +19,20 @@ import java.util.Optional;
 public class CreditService {
 
     @Autowired
-    private MigracaoDadosService migracaoDadosService;
-
-    @Autowired
     private CreditRepository creditRepository;
 
     @Autowired
     private CreditMapper creditMapper;
 
+    @Autowired
+    private CreditClient creditClient;
+
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
     @Scheduled(fixedDelay = 10000000L)
-    public void iniciar(){
+    public void onboardingData(){
 
-        List<CreditModel> creditModelList = migracaoDadosService.feignClientMigrar();
+        //List<CreditModel> creditModelList = migracaoDadosService.feignClientMigrar();
+        List<CreditModel> creditModelList = creditMapper.mapAllCreditDTOToCreditModel((creditClient.getAllCredits()).getValue());
         creditRepository.saveAll(creditModelList);
     }
 
@@ -48,19 +51,22 @@ public class CreditService {
         creditRepository.delete(creditModel);
     }
 
-    public CreditPUTByIdResponse save(CreditModel creditModel) {
-        CreditPUTByIdResponse creditPUTByIdResponse = creditMapper.toCreditPUTByIdResponse(creditRepository.save(creditModel));
-        return creditPUTByIdResponse;
+    public CreditResponse save(CreditModel creditModel) {
+        return creditMapper.mapToCreditResponse(creditRepository.save(creditModel));
+    }
+
+    public CreditResponse save(CreditPUTByIdRequest creditPUTByIdRequest, Long id) {
+        CreditModel creditModel = creditMapper.toCreditModel(creditPUTByIdRequest);
+        creditModel.setId(id);
+        return creditMapper.mapToCreditResponse(creditRepository.save(creditModel));
     }
 
     public Page<CreditModel> findAllPageable(Pageable pageable) {
-        Page<CreditModel> creditModelPage = creditRepository.findAll(pageable);
-        return creditModelPage;
+        return creditRepository.findAll(pageable);
     }
 
     public List<CreditModel> findByYear(String year) {
-        List<CreditModel> creditModelList = creditRepository.findByAnoEmissao(year);
-        return creditModelList;
+        return creditRepository.findByAnoEmissao(year);
     }
 
 }

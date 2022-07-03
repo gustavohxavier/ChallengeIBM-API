@@ -1,10 +1,9 @@
 package com.projeto.projetoapi.controller;
 
 import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
-import com.projeto.projetoapi.DTO.responses.CreditPUTByIdResponse;
+import com.projeto.projetoapi.DTO.responses.CreditResponse;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.services.CreditService;
-import com.projeto.projetoapi.services.MigracaoDadosService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,8 +22,6 @@ public class CreditController {
 
     @Autowired
     private CreditService creditService;
-    @Autowired
-    private MigracaoDadosService migracaoDadosService;
 
     //Retorna todos os dados do DB
     @GetMapping
@@ -33,8 +30,8 @@ public class CreditController {
     }
 
     //Retorna uma tupla do DB especificada por ID
-    @GetMapping(value = "/buscar")
-    public ResponseEntity<Object> getById(@RequestParam(value = "idP") Long id){
+    @GetMapping(value = "/id")
+    public ResponseEntity<Object> getById(@RequestParam(value = "id") Long id){
         Optional<CreditModel> creditModelOptional = creditService.findById(id);
         if (creditModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
@@ -53,7 +50,7 @@ public class CreditController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteCredit(@PathVariable(value = "id") Long id){
         Optional<CreditModel> creditModelOptional = creditService.findById(id);
-        if (!creditModelOptional.isPresent()){
+        if (creditModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
         creditService.delete(creditModelOptional.get());
@@ -65,13 +62,14 @@ public class CreditController {
                                                @RequestBody CreditPUTByIdRequest creditPUTByIdRequest){
 
         Optional<CreditModel> creditModelOptional = creditService.findById(id);
-        if(!creditModelOptional.isPresent()){
+        if(creditModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
-        CreditModel creditModel = migracaoDadosService.webClientMigrar(creditPUTByIdRequest, id);
-        CreditPUTByIdResponse creditPUTByIdResponse = creditService.save(creditModel);
-        creditPUTByIdResponse.setId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(creditPUTByIdResponse);
+        //CreditModel creditModel = migracaoDadosService.webClientMigrar(creditPUTByIdRequest, id);
+        CreditResponse creditResponse = creditService.save(creditPUTByIdRequest, id);
+        //CreditResponse creditResponse = creditService.save(creditModel);
+        //creditResponse.setId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
     }
 
     @GetMapping(value = "/year/{year}")
@@ -84,5 +82,5 @@ public class CreditController {
         return ResponseEntity.status(HttpStatus.OK).body(creditModelList);
     }
 
-
+    //@PostMapping
 }
