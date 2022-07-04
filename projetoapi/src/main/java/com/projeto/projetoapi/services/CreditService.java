@@ -51,7 +51,7 @@ public class CreditService {
     //Deleta uma tupla do DB específica
     public void delete(Long id) {
         //creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found"));
-        creditRepository.delete(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found")));
+        creditRepository.delete(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " Not Found")));
     }
 
     public CreditResponse save(CreditModel creditModel) {
@@ -59,9 +59,9 @@ public class CreditService {
     }
 
     public CreditResponse save(CreditPUTByIdRequest creditPUTByIdRequest, Long id) {
-        CreditModel creditModel = creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found"));
-        creditModel.setId(id);
-        return creditMapper.mapToCreditResponse(creditRepository.save(creditModel));
+        CreditModel creditModel = creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " Not Found"));
+        creditPUTByIdRequest.setId(id);
+        return creditMapper.mapToCreditResponse(creditRepository.save(creditMapper.toCreditModel(creditPUTByIdRequest)));
     }
 
     public Page<CreditModel> findAllPageable(Pageable pageable) {

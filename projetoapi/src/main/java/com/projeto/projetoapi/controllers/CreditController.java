@@ -29,7 +29,7 @@ public class CreditController {
     }
 
     //Retorna uma tupla do DB especificada por ID
-    @GetMapping(value = "/get/id")
+    @GetMapping(value = "id")
     public ResponseEntity<CreditResponse> getById(@RequestParam(value = "id") Long id){
         CreditResponse creditResponse = creditService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
@@ -42,13 +42,13 @@ public class CreditController {
     }
 
     //Deleta uma tupla do DB especificada por ID
-    @DeleteMapping(value = "/delete/id")
+    @DeleteMapping(value = "id")
     public ResponseEntity<String> deleteCredit(@RequestParam(value = "id") Long id){
         creditService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Credit deleted succesfully.");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<CreditResponse> updateCredit(@PathVariable(value = "id") Long id,
                                                @RequestBody CreditPUTByIdRequest creditPUTByIdRequest){
 

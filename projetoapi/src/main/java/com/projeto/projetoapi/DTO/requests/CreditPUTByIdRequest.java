@@ -1,5 +1,6 @@
 package com.projeto.projetoapi.DTO.requests;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import lombok.Setter;
 @Builder
 public class CreditPUTByIdRequest {
 
+    @JsonIgnore
+    private Long id;
     private String nomeProduto;
     private String nomeRegiao;
     private String nomeUF;
