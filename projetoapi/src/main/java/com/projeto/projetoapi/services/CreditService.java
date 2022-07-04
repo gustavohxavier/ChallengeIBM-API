@@ -6,6 +6,7 @@ import com.projeto.projetoapi.client.CreditClient;
 import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.repositories.CreditRepository;
+import com.projeto.projetoapi.services.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CreditService {
@@ -42,13 +42,16 @@ public class CreditService {
     }
 
     //Retorna uma tupla do DB buscada por ID
-    public Optional<CreditModel> findById(Long id) {
-        return creditRepository.findById(id);
+    public CreditResponse findById(Long id) {
+        return creditMapper.mapToCreditResponse(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found")));
+
+
     }
 
     //Deleta uma tupla do DB específica
-    public void delete(CreditModel creditModel) {
-        creditRepository.delete(creditModel);
+    public void delete(Long id) {
+        //creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found"));
+        creditRepository.delete(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found")));
     }
 
     public CreditResponse save(CreditModel creditModel) {
@@ -56,7 +59,7 @@ public class CreditService {
     }
 
     public CreditResponse save(CreditPUTByIdRequest creditPUTByIdRequest, Long id) {
-        CreditModel creditModel = creditMapper.toCreditModel(creditPUTByIdRequest);
+        CreditModel creditModel = creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found"));
         creditModel.setId(id);
         return creditMapper.mapToCreditResponse(creditRepository.save(creditModel));
     }

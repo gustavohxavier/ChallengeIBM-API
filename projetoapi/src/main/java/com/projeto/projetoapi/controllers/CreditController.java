@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.controller;
+package com.projeto.projetoapi.controllers;
 
 import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
 import com.projeto.projetoapi.DTO.responses.CreditResponse;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -30,13 +29,10 @@ public class CreditController {
     }
 
     //Retorna uma tupla do DB especificada por ID
-    @GetMapping(value = "/id")
-    public ResponseEntity<Object> getById(@RequestParam(value = "id") Long id){
-        Optional<CreditModel> creditModelOptional = creditService.findById(id);
-        if (creditModelOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(creditModelOptional.get());
+    @GetMapping(value = "/get/id")
+    public ResponseEntity<CreditResponse> getById(@RequestParam(value = "id") Long id){
+        CreditResponse creditResponse = creditService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
     }
 
     @GetMapping(value = "/page")
@@ -46,24 +42,16 @@ public class CreditController {
     }
 
     //Deleta uma tupla do DB especificada por ID
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteCredit(@PathVariable(value = "id") Long id){
-        Optional<CreditModel> creditModelOptional = creditService.findById(id);
-        if (creditModelOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
-        }
-        creditService.delete(creditModelOptional.get());
+    @DeleteMapping(value = "/delete/id")
+    public ResponseEntity<String> deleteCredit(@RequestParam(value = "id") Long id){
+        creditService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Credit deleted succesfully.");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateCredit(@PathVariable(value = "id") Long id,
+    public ResponseEntity<CreditResponse> updateCredit(@PathVariable(value = "id") Long id,
                                                @RequestBody CreditPUTByIdRequest creditPUTByIdRequest){
 
-        Optional<CreditModel> creditModelOptional = creditService.findById(id);
-        if(creditModelOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
-        }
         CreditResponse creditResponse = creditService.save(creditPUTByIdRequest, id);
         return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
     }
