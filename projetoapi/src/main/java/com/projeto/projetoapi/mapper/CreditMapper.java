@@ -21,4 +21,6 @@ public interface CreditMapper {
     CreditResponse mapToCreditResponse(CreditModel creditModel);
 
     List<CreditModel> mapAllCreditDTOToCreditModel(List<AtributesCreditDTO> value);
+
+    List<CreditResponse> mapCreditModelListToCreditResponseList(List<CreditModel> creditModelList);
 }

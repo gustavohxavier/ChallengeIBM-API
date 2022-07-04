@@ -31,14 +31,14 @@ public class CreditService {
     @Scheduled(fixedDelay = 10000000L)
     public void onboardingData(){
 
-        //List<CreditModel> creditModelList = migracaoDadosService.feignClientMigrar();
         List<CreditModel> creditModelList = creditMapper.mapAllCreditDTOToCreditModel((creditClient.getAllCredits()).getValue());
         creditRepository.saveAll(creditModelList);
     }
 
     //Retorna todos os dados recuperados do DB
-    public List<CreditModel> findAll() {
-        return creditRepository.findAll();
+    public List<CreditResponse> findAll() {
+        List<CreditModel> creditModelList = creditRepository.findAll();
+        return creditMapper.mapCreditModelListToCreditResponseList(creditModelList);
     }
 
     //Retorna uma tupla do DB buscada por ID

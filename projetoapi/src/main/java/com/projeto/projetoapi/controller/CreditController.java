@@ -25,7 +25,7 @@ public class CreditController {
 
     //Retorna todos os dados do DB
     @GetMapping
-    public ResponseEntity<List<CreditModel>> getAllCredits(){
+    public ResponseEntity<List<CreditResponse>> getAllCredits(){
         return ResponseEntity.status(HttpStatus.OK).body(creditService.findAll());
     }
 
@@ -36,7 +36,6 @@ public class CreditController {
         if (creditModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
-        //CreditGetByIdResponse creditGetByIdResponse = creditMapper.toCreditGetByIdResponse(creditModelOptional);
         return ResponseEntity.status(HttpStatus.OK).body(creditModelOptional.get());
     }
 
@@ -65,10 +64,7 @@ public class CreditController {
         if(creditModelOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
         }
-        //CreditModel creditModel = migracaoDadosService.webClientMigrar(creditPUTByIdRequest, id);
         CreditResponse creditResponse = creditService.save(creditPUTByIdRequest, id);
-        //CreditResponse creditResponse = creditService.save(creditModel);
-        //creditResponse.setId(id);
         return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
     }
 
