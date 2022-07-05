@@ -1,6 +1,6 @@
 package com.projeto.projetoapi.controllers;
 
-import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
+import com.projeto.projetoapi.DTO.requests.CreditRequest;
 import com.projeto.projetoapi.DTO.responses.CreditResponse;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.services.CreditService;
@@ -50,9 +50,9 @@ public class CreditController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<CreditResponse> updateCredit(@PathVariable(value = "id") Long id,
-                                               @RequestBody CreditPUTByIdRequest creditPUTByIdRequest){
+                                               @RequestBody CreditRequest creditRequest){
 
-        CreditResponse creditResponse = creditService.save(creditPUTByIdRequest, id);
+        CreditResponse creditResponse = creditService.save(creditRequest, id);
         return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
     }
 
@@ -66,5 +66,10 @@ public class CreditController {
         return ResponseEntity.status(HttpStatus.OK).body(creditModelList);
     }
 
-    //@PostMapping
+    @PostMapping
+    public ResponseEntity<CreditResponse> createCredit(@RequestBody CreditRequest creditRequest){
+
+        CreditResponse creditResponse = creditService.save(creditRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creditResponse);
+    }
 }

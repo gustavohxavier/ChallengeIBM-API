@@ -1,6 +1,6 @@
 package com.projeto.projetoapi.services;
 
-import com.projeto.projetoapi.DTO.requests.CreditPUTByIdRequest;
+import com.projeto.projetoapi.DTO.requests.CreditRequest;
 import com.projeto.projetoapi.DTO.responses.CreditResponse;
 import com.projeto.projetoapi.client.CreditClient;
 import com.projeto.projetoapi.mapper.CreditMapper;
@@ -43,25 +43,28 @@ public class CreditService {
 
     //Retorna uma tupla do DB buscada por ID
     public CreditResponse findById(Long id) {
-        return creditMapper.mapToCreditResponse(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found")));
+        return creditMapper.mapToCreditResponse(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " Not Found")));
 
 
     }
 
     //Deleta uma tupla do DB específica
     public void delete(Long id) {
-        //creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id" + id + "Not Found"));
         creditRepository.delete(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " Not Found")));
     }
 
-    public CreditResponse save(CreditModel creditModel) {
-        return creditMapper.mapToCreditResponse(creditRepository.save(creditModel));
+    public CreditResponse save(CreditRequest creditRequest) {
+        //CreditModel creditModel = creditRepository.save(creditMapper.toCreditModel(creditRequest));
+        /*if(creditRequestList.isEmpty())
+            throw new EntityAlreadyExistException("Entity already exist.");*/
+
+        return creditMapper.mapToCreditResponse(creditRepository.save(creditMapper.toCreditModel(creditRequest)));
     }
 
-    public CreditResponse save(CreditPUTByIdRequest creditPUTByIdRequest, Long id) {
-        CreditModel creditModel = creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " Not Found"));
-        creditPUTByIdRequest.setId(id);
-        return creditMapper.mapToCreditResponse(creditRepository.save(creditMapper.toCreditModel(creditPUTByIdRequest)));
+    public CreditResponse save(CreditRequest creditRequest, Long id) {
+        CreditModel creditModel = creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " not found"));
+        creditRequest.setId(id);
+        return creditMapper.mapToCreditResponse(creditRepository.save(creditMapper.toCreditModel(creditRequest)));
     }
 
     public Page<CreditModel> findAllPageable(Pageable pageable) {

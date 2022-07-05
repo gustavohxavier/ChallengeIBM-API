@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class CreditPUTByIdRequest {
+public class CreditRequest {
 
     @JsonIgnore
     private Long id;
