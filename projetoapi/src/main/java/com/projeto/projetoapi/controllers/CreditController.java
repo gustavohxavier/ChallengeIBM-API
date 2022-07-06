@@ -1,6 +1,7 @@
 package com.projeto.projetoapi.controllers;
 
 import com.projeto.projetoapi.DTO.requests.CreditRequest;
+import com.projeto.projetoapi.DTO.responses.ContractByYear;
 import com.projeto.projetoapi.DTO.responses.CreditResponse;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.services.CreditService;
@@ -58,12 +59,9 @@ public class CreditController {
 
     @GetMapping(value = "/year/{year}")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
-        List<CreditModel> creditModelList1 = creditService.findByYear(year);
-        if (creditModelList1.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credit not found. Try again.");
-        }
-        List<CreditModel> creditModelList = creditService.findByYear(year);
-        return ResponseEntity.status(HttpStatus.OK).body(creditModelList);
+
+        List<ContractByYear> contractByYearList = creditService.findByYear(year);
+        return ResponseEntity.status(HttpStatus.OK).body(contractByYearList);
     }
 
     @PostMapping

@@ -1,7 +1,9 @@
 package com.projeto.projetoapi.services;
 
 import com.projeto.projetoapi.DTO.requests.CreditRequest;
+import com.projeto.projetoapi.DTO.responses.ContractByYear;
 import com.projeto.projetoapi.DTO.responses.CreditResponse;
+import com.projeto.projetoapi.DTO.responses.ProductsByYear;
 import com.projeto.projetoapi.client.CreditClient;
 import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,6 +30,12 @@ public class CreditService {
 
     @Autowired
     private CreditClient creditClient;
+
+    @Autowired
+    private ContractByYear contractByYear;
+
+    @Autowired
+    private ProductsByYear productsByYear;
 
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
     @Scheduled(fixedDelay = 10000000L)
@@ -71,8 +81,27 @@ public class CreditService {
         return creditRepository.findAll(pageable);
     }
 
-    public List<CreditModel> findByYear(String year) {
-        return creditRepository.findByAnoEmissao(year);
+    public List<ContractByYear> findByYear(String year) {
+        List<String> productsByYears = Arrays.asList(   productsByYear.getPruduct1(),
+                                                        productsByYear.getPruduct2(),
+                                                        productsByYear.getPruduct3(),
+                                                        productsByYear.getPruduct4(),
+                                                        productsByYear.getPruduct5());
+        List<CreditModel> creditModel = creditRepository.findByAnoEmissaoAndNomeProdutoIn(year, productsByYears);
+
+        List<ContractByYear> contractByYearList = new ArrayList<>();
+        for(int i=0; i<creditModel.size();i++){
+            if(     creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct1()) ||
+                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct2()) ||
+                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct3()) ||
+                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct4()) ||
+                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct5())) {
+
+                ContractByYear contractByYears = creditMapper.mapCreditModelListToContractByYearList(creditModel.get(i));
+                contractByYearList.add(contractByYears);
+            }
+        }
+        return contractByYearList;
     }
 
 }

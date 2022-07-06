@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CreditRepository extends JpaRepository<CreditModel, Long> {
 
-    List<CreditModel> findByAnoEmissao(String year);
+    List<CreditModel> findByAnoEmissaoAndNomeProdutoIn(String year, List<String> nomeProduto);
 
     //@Query(value = "SELECT * FROM CreditModel WHERE ")
     //List<CreditRequest> findEntity();
