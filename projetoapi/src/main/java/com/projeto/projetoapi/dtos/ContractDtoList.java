@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.Dtos;
+package com.projeto.projetoapi.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +10,8 @@ import java.util.List;
 @AllArgsConstructor //cria construtor com argumentos
 @NoArgsConstructor  //cria construtor sem argumentos
 //@Builder(toBuilder = true)
-public class CreditDTO {
+public class ContractDtoList {
 
-        List<AtributesCreditDTO> value;
+        List<ContractDto> value;
 
 }

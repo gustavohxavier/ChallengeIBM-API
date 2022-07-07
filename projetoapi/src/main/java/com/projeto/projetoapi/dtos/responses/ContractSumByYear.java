@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.Dtos.responses;
+package com.projeto.projetoapi.dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContractByYear {
+public class ContractSumByYear {
 
     private String nomeProduto;
     private BigDecimal somaAno;

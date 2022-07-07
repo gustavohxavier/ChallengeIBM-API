@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.models;
+package com.projeto.projetoapi.entities;
 
 import lombok.*;
 
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Entity
 @Table(name = "TB_CONTRACTS")
-public class CreditModel {
+public class ContractEntity {
 //    private static final long serialVersionUID = 1L;
 
     @Id

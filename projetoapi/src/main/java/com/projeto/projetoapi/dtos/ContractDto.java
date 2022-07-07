@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.Dtos;
+package com.projeto.projetoapi.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AtributesCreditDTO {
+public class ContractDto {
 
     @JsonDeserialize(using = Deserialize.class)
     private String nomeProduto;

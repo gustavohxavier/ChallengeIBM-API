@@ -1,5 +1,6 @@
-package com.projeto.projetoapi.Dtos.responses;
+package com.projeto.projetoapi.dtos.requests;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,8 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class CreditResponse {
+@Builder
+public class ContractRequest {
 
     private Long id;
     private String nomeProduto;

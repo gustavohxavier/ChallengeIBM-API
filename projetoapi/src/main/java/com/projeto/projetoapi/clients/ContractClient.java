@@ -1,14 +1,14 @@
-package com.projeto.projetoapi.client;
+package com.projeto.projetoapi.clients;
 
-import com.projeto.projetoapi.Dtos.CreditDTO;
+import com.projeto.projetoapi.dtos.ContractDtoList;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(name = "contract", url = "https://olinda.bcb.gov.br/olinda/servico/SICOR/versao/v2/odata/ComercRegiaoUFProduto")
-public interface CreditClient {
+public interface ContractClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "")
-    CreditDTO getAllCredits();
+    ContractDtoList getAllCredits();
 
 }
