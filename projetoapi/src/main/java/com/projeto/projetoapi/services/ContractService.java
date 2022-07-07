@@ -45,7 +45,9 @@ public class ContractService {
     }
 
     public List<ContractResponse> findByParam(ContractRequest contractRequest) {
-        return contractMapper.mapCreditModelListToCreditResponseList(contractRepository.findAll(Example.of(contractMapper.toCreditModel(contractRequest))));
+        List<ContractResponse> contractResponseList = contractMapper.mapCreditModelListToCreditResponseList(contractRepository.findAll(Example.of(contractMapper.toCreditModel(contractRequest))));
+        if(contractResponseList.isEmpty()) throw new EntityNotFoundException("Parameter Not Found");
+        return contractResponseList;
     }
 
     //Deleta uma tupla do DB específica
