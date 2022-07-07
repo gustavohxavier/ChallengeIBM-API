@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContractRepository extends JpaRepository<ContractEntity, Long> {
 
-    @Query(value = "SELECT  SUM(vlCusteio) AS somaAno FROM ContractEntity WHERE nomeProduto in ('SOJA', 'FEIJÃO', 'TRIGO', 'MILHO', 'CANA-DE-AÇUCAR') AND anoEmissao = ?1 GROUP BY nomeProduto ORDER BY nomeProduto ASC")
+    @Query(value = "SELECT  nomeProduto, SUM(vlCusteio) FROM ContractEntity WHERE nomeProduto in ('SOJA', 'FEIJÃO', 'TRIGO', 'MILHO', 'CANA-DE-AÇUCAR') AND anoEmissao = ?1 GROUP BY nomeProduto ORDER BY nomeProduto ASC")
     Object[] soma(String year);
 }

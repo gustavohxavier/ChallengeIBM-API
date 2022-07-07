@@ -3,7 +3,6 @@ package com.projeto.projetoapi.services;
 import com.projeto.projetoapi.clients.ContractClient;
 import com.projeto.projetoapi.dtos.requests.ContractRequest;
 import com.projeto.projetoapi.dtos.responses.ContractResponse;
-import com.projeto.projetoapi.dtos.responses.ContractSumByYear;
 import com.projeto.projetoapi.dtos.responses.ProductsByYear;
 import com.projeto.projetoapi.entities.ContractEntity;
 import com.projeto.projetoapi.mappers.ContractMapper;
@@ -16,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -73,20 +70,6 @@ public class ContractService {
 
         Object[] soma = contractRepository.soma(year);
         if(soma.length == 0) throw new EntityNotFoundException("Year " + year + " not found");
-
-        List<ContractSumByYear> contractSumByYearList = new ArrayList<>();
-        for(int i=0; i<soma.length;i++){
-            ContractSumByYear contractSumByYear1 = new ContractSumByYear();
-            contractSumByYear1.setSomaAno((BigDecimal) soma[i]);
-            contractSumByYearList.add(contractSumByYear1);
-        }
-        contractSumByYearList.get(0).setNomeProduto(productsByYear.getPruduct1());
-        contractSumByYearList.get(1).setNomeProduto(productsByYear.getPruduct2());
-        contractSumByYearList.get(2).setNomeProduto(productsByYear.getPruduct3());
-        contractSumByYearList.get(3).setNomeProduto(productsByYear.getPruduct4());
-        contractSumByYearList.get(4).setNomeProduto(productsByYear.getPruduct5());
-
-        return contractSumByYearList;
-
+        return soma;
     }
 }

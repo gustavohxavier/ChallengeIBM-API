@@ -10,9 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ContractMapper {
-
     ContractEntity toCreditModel(ContractRequest contractRequest);
-
 
     ContractResponse mapToCreditResponse(ContractEntity contractEntity);
 

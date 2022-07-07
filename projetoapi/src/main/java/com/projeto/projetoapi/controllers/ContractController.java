@@ -4,6 +4,8 @@ import com.projeto.projetoapi.dtos.requests.ContractRequest;
 import com.projeto.projetoapi.dtos.responses.ContractResponse;
 import com.projeto.projetoapi.entities.ContractEntity;
 import com.projeto.projetoapi.services.ContractService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +18,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/credits")
+@RequestMapping(value = "/contracts")
+@Api(value = "API REST Contratos de Comercialização")
+@CrossOrigin(origins = "*")
 public class ContractController {
 
     @Autowired
@@ -24,12 +28,14 @@ public class ContractController {
 
     //Retorna uma tupla do DB especificada por ID
     @GetMapping
+    @ApiOperation(value = "Retorna contratos definidos por parâmetros")
     public ResponseEntity<List<ContractResponse>> getByParam(ContractRequest contractRequest){
         List<ContractResponse> contractResponse = contractService.findByParam(contractRequest);
         return ResponseEntity.status(HttpStatus.OK).body(contractResponse);
     }
 
     @GetMapping(value = "/page")
+    @ApiOperation(value = "Retorna os contratos paginados")
     public ResponseEntity<Page<ContractEntity>> findAll(Pageable pageable){
         Page<ContractEntity> creditModelPage = contractService.findAllPageable(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(creditModelPage);
@@ -37,12 +43,14 @@ public class ContractController {
 
     //Deleta uma tupla do DB especificada por ID
     @DeleteMapping(value = "id")
+    @ApiOperation(value = "Deleta um contrato especificado por ID")
     public ResponseEntity<String> deleteCredit(@RequestParam(value = "id") Long id){
         contractService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Credit deleted succesfully.");
     }
 
     @PutMapping(value = "/{id}")
+    @ApiOperation(value = "Atualiza contrato especificado por ID")
     public ResponseEntity<ContractResponse> updateCredit(@PathVariable(value = "id") Long id,
                                                          @RequestBody ContractRequest contractRequest){
 
@@ -51,13 +59,14 @@ public class ContractController {
     }
 
     @GetMapping(value = "/year/{year}")
+    @ApiOperation(value = "Retorna a soma dos valores de custeio dos contrato especificados por ano")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
         return ResponseEntity.status(HttpStatus.OK).body(contractService.findByYear(year));
     }
 
     @PostMapping
+    @ApiOperation(value = "Insere um novo contrato")
     public ResponseEntity<ContractResponse> createCredit(@RequestBody ContractRequest contractRequest){
-
         ContractResponse contractResponse = contractService.save(contractRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(contractResponse);
     }
