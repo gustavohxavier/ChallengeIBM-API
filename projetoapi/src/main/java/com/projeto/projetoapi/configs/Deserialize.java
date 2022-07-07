@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.resources;
+package com.projeto.projetoapi.configs;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;

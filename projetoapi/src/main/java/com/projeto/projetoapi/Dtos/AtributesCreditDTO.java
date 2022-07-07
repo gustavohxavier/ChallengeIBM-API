@@ -1,8 +1,8 @@
-package com.projeto.projetoapi.DTO;
+package com.projeto.projetoapi.Dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.projeto.projetoapi.resources.Deserialize;
+import com.projeto.projetoapi.configs.Deserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.DTO.requests;
+package com.projeto.projetoapi.Dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;

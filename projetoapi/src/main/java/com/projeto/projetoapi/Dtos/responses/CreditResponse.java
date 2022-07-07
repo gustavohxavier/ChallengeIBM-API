@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.DTO.responses;
+package com.projeto.projetoapi.Dtos.responses;
 
 import lombok.Data;
 import lombok.Getter;

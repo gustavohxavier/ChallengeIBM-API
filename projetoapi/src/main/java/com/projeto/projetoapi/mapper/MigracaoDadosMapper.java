@@ -1,7 +1,7 @@
 package com.projeto.projetoapi.mapper;
 
-import com.projeto.projetoapi.DTO.AtributesCreditDTO;
-import com.projeto.projetoapi.DTO.CreditDTO;
+import com.projeto.projetoapi.Dtos.AtributesCreditDTO;
+import com.projeto.projetoapi.Dtos.CreditDTO;
 import com.projeto.projetoapi.models.CreditModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,7 @@
 package com.projeto.projetoapi.controllers;
 
-import com.projeto.projetoapi.DTO.requests.CreditRequest;
-import com.projeto.projetoapi.DTO.responses.ContractByYear;
-import com.projeto.projetoapi.DTO.responses.CreditResponse;
+import com.projeto.projetoapi.Dtos.requests.CreditRequest;
+import com.projeto.projetoapi.Dtos.responses.CreditResponse;
 import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.services.CreditService;
 import lombok.AllArgsConstructor;
@@ -59,9 +58,7 @@ public class CreditController {
 
     @GetMapping(value = "/year/{year}")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
-
-        List<ContractByYear> contractByYearList = creditService.findByYear(year);
-        return ResponseEntity.status(HttpStatus.OK).body(contractByYearList);
+        return ResponseEntity.status(HttpStatus.OK).body(creditService.findByYear(year));
     }
 
     @PostMapping

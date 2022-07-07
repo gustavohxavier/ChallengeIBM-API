@@ -1,9 +1,9 @@
 package com.projeto.projetoapi.services;
 
-import com.projeto.projetoapi.DTO.requests.CreditRequest;
-import com.projeto.projetoapi.DTO.responses.ContractByYear;
-import com.projeto.projetoapi.DTO.responses.CreditResponse;
-import com.projeto.projetoapi.DTO.responses.ProductsByYear;
+import com.projeto.projetoapi.Dtos.requests.CreditRequest;
+import com.projeto.projetoapi.Dtos.responses.ContractByYear;
+import com.projeto.projetoapi.Dtos.responses.CreditResponse;
+import com.projeto.projetoapi.Dtos.responses.ProductsByYear;
 import com.projeto.projetoapi.client.CreditClient;
 import com.projeto.projetoapi.mapper.CreditMapper;
 import com.projeto.projetoapi.models.CreditModel;
@@ -15,8 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -32,10 +32,8 @@ public class CreditService {
     private CreditClient creditClient;
 
     @Autowired
-    private ContractByYear contractByYear;
-
-    @Autowired
     private ProductsByYear productsByYear;
+
 
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
     @Scheduled(fixedDelay = 10000000L)
@@ -54,8 +52,6 @@ public class CreditService {
     //Retorna uma tupla do DB buscada por ID
     public CreditResponse findById(Long id) {
         return creditMapper.mapToCreditResponse(creditRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Id " + id + " Not Found")));
-
-
     }
 
     //Deleta uma tupla do DB específica
@@ -64,10 +60,6 @@ public class CreditService {
     }
 
     public CreditResponse save(CreditRequest creditRequest) {
-        //CreditModel creditModel = creditRepository.save(creditMapper.toCreditModel(creditRequest));
-        /*if(creditRequestList.isEmpty())
-            throw new EntityAlreadyExistException("Entity already exist.");*/
-
         return creditMapper.mapToCreditResponse(creditRepository.save(creditMapper.toCreditModel(creditRequest)));
     }
 
@@ -81,27 +73,24 @@ public class CreditService {
         return creditRepository.findAll(pageable);
     }
 
-    public List<ContractByYear> findByYear(String year) {
-        List<String> productsByYears = Arrays.asList(   productsByYear.getPruduct1(),
-                                                        productsByYear.getPruduct2(),
-                                                        productsByYear.getPruduct3(),
-                                                        productsByYear.getPruduct4(),
-                                                        productsByYear.getPruduct5());
-        List<CreditModel> creditModel = creditRepository.findByAnoEmissaoAndNomeProdutoIn(year, productsByYears);
+    public Object findByYear(String year) {
+
+        Object[] soma = creditRepository.soma(year);
+        if(soma.length == 0) throw new EntityNotFoundException("Year " + year + " not found");
 
         List<ContractByYear> contractByYearList = new ArrayList<>();
-        for(int i=0; i<creditModel.size();i++){
-            if(     creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct1()) ||
-                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct2()) ||
-                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct3()) ||
-                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct4()) ||
-                    creditModel.get(i).getNomeProduto().equals(productsByYear.getPruduct5())) {
-
-                ContractByYear contractByYears = creditMapper.mapCreditModelListToContractByYearList(creditModel.get(i));
-                contractByYearList.add(contractByYears);
-            }
+        for(int i=0; i<soma.length;i++){
+            ContractByYear contractByYear1 = new ContractByYear();
+            contractByYear1.setSomaAno((BigDecimal) soma[i]);
+            contractByYearList.add(contractByYear1);
         }
-        return contractByYearList;
-    }
+        contractByYearList.get(0).setNomeProduto(productsByYear.getPruduct1());
+        contractByYearList.get(1).setNomeProduto(productsByYear.getPruduct2());
+        contractByYearList.get(2).setNomeProduto(productsByYear.getPruduct3());
+        contractByYearList.get(3).setNomeProduto(productsByYear.getPruduct4());
+        contractByYearList.get(4).setNomeProduto(productsByYear.getPruduct5());
 
+        return contractByYearList;
+
+    }
 }

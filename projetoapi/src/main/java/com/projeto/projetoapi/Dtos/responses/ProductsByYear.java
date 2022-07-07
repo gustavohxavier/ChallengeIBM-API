@@ -1,4 +1,4 @@
-package com.projeto.projetoapi.DTO.responses;
+package com.projeto.projetoapi.Dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductsByYear {
 
-    private String pruduct1 = "SOJA";
+    private String pruduct4 = "SOJA";
     private String pruduct2 = "FEIJÃO";
-    private String pruduct3 = "TRIGO";
-    private String pruduct4 = "MILHO";
-    private String pruduct5 = "CANA-DE-AÇUCAR";
+    private String pruduct5 = "TRIGO";
+    private String pruduct3 = "MILHO";
+    private String pruduct1 = "CANA-DE-AÇUCAR";
 }
