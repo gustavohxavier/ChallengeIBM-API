@@ -23,15 +23,15 @@ public class CreditController {
     private CreditService creditService;
 
     //Retorna todos os dados do DB
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<List<CreditResponse>> getAllCredits(){
         return ResponseEntity.status(HttpStatus.OK).body(creditService.findAll());
-    }
+    }*/
 
     //Retorna uma tupla do DB especificada por ID
-    @GetMapping(value = "id")
-    public ResponseEntity<CreditResponse> getById(@RequestParam(value = "id") Long id){
-        CreditResponse creditResponse = creditService.findById(id);
+    @GetMapping
+    public ResponseEntity<List<CreditResponse>> getBy(CreditRequest creditRequest){
+        List<CreditResponse> creditResponse = creditService.findBy(creditRequest);
         return ResponseEntity.status(HttpStatus.OK).body(creditResponse);
     }
 

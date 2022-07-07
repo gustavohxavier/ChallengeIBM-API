@@ -10,6 +10,7 @@ import com.projeto.projetoapi.models.CreditModel;
 import com.projeto.projetoapi.repositories.CreditRepository;
 import com.projeto.projetoapi.services.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -92,5 +93,9 @@ public class CreditService {
 
         return contractByYearList;
 
+    }
+
+    public List<CreditResponse> findBy(CreditRequest creditRequest) {
+        return creditMapper.mapCreditModelListToCreditResponseList(creditRepository.findAll(Example.of(creditMapper.toCreditModel(creditRequest))));
     }
 }

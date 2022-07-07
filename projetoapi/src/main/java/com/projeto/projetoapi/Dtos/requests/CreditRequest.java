@@ -1,6 +1,5 @@
 package com.projeto.projetoapi.Dtos.requests;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -12,7 +11,6 @@ import lombok.Setter;
 @Builder
 public class CreditRequest {
 
-    @JsonIgnore
     private Long id;
     private String nomeProduto;
     private String nomeRegiao;
