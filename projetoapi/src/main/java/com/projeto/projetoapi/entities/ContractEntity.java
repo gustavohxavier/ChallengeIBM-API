@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Builder(toBuilder = true)
 @Data
 @Getter
 @Setter

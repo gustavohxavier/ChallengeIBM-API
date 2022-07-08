@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -67,12 +68,13 @@ public class ContractService {
 
     public Object findByYear(String year) {
 
-        List<String> products = new ArrayList<>();
+        List<String> products = Arrays.asList("CANA-DE-AÇUCAR", "FEIJÃO", "MILHO", "SOJA", "TRIGO");
+        /*List<String> products = new ArrayList<>();
         products.add("CANA-DE-AÇUCAR");
         products.add("FEIJÃO");
         products.add("MILHO");
         products.add("SOJA");
-        products.add("TRIGO");
+        products.add("TRIGO");*/
         Object[] soma = contractRepository.soma(year, products);
         if(soma.length == 0) throw new EntityNotFoundException("Year " + year + " not found");
 
