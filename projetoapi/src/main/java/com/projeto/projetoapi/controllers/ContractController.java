@@ -26,7 +26,7 @@ public class ContractController {
     @Autowired
     private ContractService contractService;
 
-    //Retorna uma tupla do DB especificada por ID
+    //Retorna todos os contratos ou contratos definidos por parâmetros
     @GetMapping
     @ApiOperation(value = "Retorna contratos definidos por parâmetros")
     public ResponseEntity<List<ContractResponse>> getByParam(ContractRequest contractRequest){
@@ -34,6 +34,7 @@ public class ContractController {
         return ResponseEntity.status(HttpStatus.OK).body(contractResponse);
     }
 
+    //Retorna todos os contratos paginados
     @GetMapping(value = "/page")
     @ApiOperation(value = "Retorna os contratos paginados")
     public ResponseEntity<Page<ContractEntity>> findAll(Pageable pageable){
@@ -49,6 +50,7 @@ public class ContractController {
         return ResponseEntity.status(HttpStatus.OK).body("Credit deleted succesfully.");
     }
 
+    //Atualiza um contrato especificado por ID
     @PutMapping(value = "/{id}")
     @ApiOperation(value = "Atualiza contrato especificado por ID")
     public ResponseEntity<ContractResponse> updateCredit(@PathVariable(value = "id") Long id,
@@ -58,12 +60,14 @@ public class ContractController {
         return ResponseEntity.status(HttpStatus.OK).body(contractResponse);
     }
 
+    //Retorna o somatório anual dos valores de custeio dos produtos especificados por ano
     @GetMapping(value = "/year/{year}")
     @ApiOperation(value = "Retorna a sumYear dos valores de custeio dos contrato especificados por ano")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
         return ResponseEntity.status(HttpStatus.OK).body(contractService.findByYear(year));
     }
 
+    //Cria um novo contrato
     @PostMapping
     @ApiOperation(value = "Insere um novo contrato")
     public ResponseEntity<ContractResponse> createCredit(@RequestBody ContractRequest contractRequest){

@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "TB_CONTRACTS")
 public class ContractEntity {
-//    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

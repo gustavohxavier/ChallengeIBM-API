@@ -34,7 +34,7 @@ public class ContractService {
     private ContractClient contractClient;
 
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
-    @Scheduled(fixedDelay = 10000000L)
+    @Scheduled(fixedDelay = 2592000000L)    //Delay de 1 mês
     public void onboardingData(){
 
         List<ContractEntity> contractEntityList = contractMapper.mapAllCreditDTOToCreditModel((contractClient.getAllCredits()).getValue());
@@ -69,12 +69,6 @@ public class ContractService {
     public Object findByYear(String year) {
 
         List<String> products = Arrays.asList("CANA-DE-AÇUCAR", "FEIJÃO", "MILHO", "SOJA", "TRIGO");
-        /*List<String> products = new ArrayList<>();
-        products.add("CANA-DE-AÇUCAR");
-        products.add("FEIJÃO");
-        products.add("MILHO");
-        products.add("SOJA");
-        products.add("TRIGO");*/
         Object[] soma = contractRepository.sumYear(year, products);
         if(soma.length == 0) throw new EntityNotFoundException("Year " + year + " not found");
 

@@ -17,6 +17,4 @@ public interface ContractMapper {
     List<ContractEntity> mapAllCreditDTOToCreditModel(List<ContractDto> value);
 
     List<ContractResponse> mapCreditModelListToCreditResponseList(List<ContractEntity> contractEntityList);
-
-    //List<ContractSumByYear> mapObjectListToContractSumByYearList(List<Object> objectList);
 }
