@@ -1,5 +1,6 @@
 package com.projeto.projetoapi.dtos.responses;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+@JsonPropertyOrder(value = "id, nomeProduto, nomeRegiao, nomeUF, mesEmissao, anoEmissao, vlCusteio")
 public class ContractResponse {
 
     private Long id;

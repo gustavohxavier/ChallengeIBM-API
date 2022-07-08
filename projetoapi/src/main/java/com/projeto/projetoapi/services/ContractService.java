@@ -3,7 +3,7 @@ package com.projeto.projetoapi.services;
 import com.projeto.projetoapi.clients.ContractClient;
 import com.projeto.projetoapi.dtos.requests.ContractRequest;
 import com.projeto.projetoapi.dtos.responses.ContractResponse;
-import com.projeto.projetoapi.dtos.responses.ProductsByYear;
+import com.projeto.projetoapi.dtos.responses.ContractSumByYear;
 import com.projeto.projetoapi.entities.ContractEntity;
 import com.projeto.projetoapi.mappers.ContractMapper;
 import com.projeto.projetoapi.repositories.ContractRepository;
@@ -15,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,10 +31,6 @@ public class ContractService {
 
     @Autowired
     private ContractClient contractClient;
-
-    @Autowired
-    private ProductsByYear productsByYear;
-
 
     //Método que realiza o processo de onboarding dos dados da API externa através do FEIGN CLIENT
     @Scheduled(fixedDelay = 10000000L)
@@ -68,8 +67,22 @@ public class ContractService {
 
     public Object findByYear(String year) {
 
-        Object[] soma = contractRepository.soma(year);
+        List<String> products = new ArrayList<>();
+        products.add("CANA-DE-AÇUCAR");
+        products.add("FEIJÃO");
+        products.add("MILHO");
+        products.add("SOJA");
+        products.add("TRIGO");
+        Object[] soma = contractRepository.soma(year, products);
         if(soma.length == 0) throw new EntityNotFoundException("Year " + year + " not found");
-        return soma;
+
+        List<ContractSumByYear> list = new ArrayList<>();
+        for (Object obj : soma) {
+            ContractSumByYear contractSumByYear1 = new ContractSumByYear();
+            contractSumByYear1.setNomeProduto((String) Array.get(obj, 0));
+            contractSumByYear1.setSomatorioAno((BigDecimal) Array.get(obj, 1));
+            list.add(contractSumByYear1);
+        }
+        return list;
     }
 }

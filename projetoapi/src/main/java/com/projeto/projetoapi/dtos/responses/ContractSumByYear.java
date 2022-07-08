@@ -14,5 +14,5 @@ import java.math.BigDecimal;
 public class ContractSumByYear {
 
     private String nomeProduto;
-    private BigDecimal somaAno;
+    private BigDecimal somatorioAno;
 }
