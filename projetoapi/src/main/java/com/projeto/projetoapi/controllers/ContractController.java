@@ -42,9 +42,9 @@ public class ContractController {
     }
 
     //Deleta uma tupla do DB especificada por ID
-    @DeleteMapping(value = "id")
+    @DeleteMapping
     @ApiOperation(value = "Deleta um contrato especificado por ID")
-    public ResponseEntity<String> deleteCredit(@RequestParam(value = "id") Long id){
+    public ResponseEntity<String> deleteCredit(@RequestParam Long id){
         contractService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Credit deleted succesfully.");
     }
@@ -59,7 +59,7 @@ public class ContractController {
     }
 
     @GetMapping(value = "/year/{year}")
-    @ApiOperation(value = "Retorna a soma dos valores de custeio dos contrato especificados por ano")
+    @ApiOperation(value = "Retorna a sumYear dos valores de custeio dos contrato especificados por ano")
     public ResponseEntity<Object> getByYear(@PathVariable(value = "year") String year){
         return ResponseEntity.status(HttpStatus.OK).body(contractService.findByYear(year));
     }

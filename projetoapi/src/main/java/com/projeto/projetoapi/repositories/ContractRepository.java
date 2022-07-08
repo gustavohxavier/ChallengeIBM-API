@@ -11,5 +11,5 @@ import java.util.List;
 public interface ContractRepository extends JpaRepository<ContractEntity, Long> {
 
     @Query(value = "SELECT  nomeProduto, SUM(vlCusteio) AS somatorioAno FROM ContractEntity WHERE nomeProduto in (:products) AND anoEmissao = :year GROUP BY nomeProduto ORDER BY nomeProduto ASC")
-    Object[] soma(String year, List<String> products);
+    Object[] sumYear(String year, List<String> products);
 }

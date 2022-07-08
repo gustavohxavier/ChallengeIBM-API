@@ -75,7 +75,7 @@ public class ContractService {
         products.add("MILHO");
         products.add("SOJA");
         products.add("TRIGO");*/
-        Object[] soma = contractRepository.soma(year, products);
+        Object[] soma = contractRepository.sumYear(year, products);
         if(soma.length == 0) throw new EntityNotFoundException("Year " + year + " not found");
 
         List<ContractSumByYear> list = new ArrayList<>();
